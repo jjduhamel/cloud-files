@@ -1,0 +1,13 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [{
+    "name": "blog",
+    "image": "hbpcb/blog",
+    "memory": 512,
+    "portMappings": [{
+      "hostPort": 80,
+      "containerPort": 8000
+    }],
+    "privileged": "true"
+  }]
+}
