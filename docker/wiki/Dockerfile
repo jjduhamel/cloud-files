@@ -1,15 +1,13 @@
-FROM hbpcb/s3fs
+FROM hbpcb/ubuntu
 MAINTAINER John Duhamel <john.duhamel@gmail.com>
 
-ENV S3_BUCKET=hbpcb-blog
+WORKDIR /data
+VOLUME /data
 
-RUN wget -qO- https://get.haskellstack.org/ | sh
-RUN stack setup
-RUN wget https://github.com/jgm/gitit/archive/0.12.1.1.tar.gz -O /tmp/gitit.tar.gz
-RUN ls
-RUN cd /usr/src && \
-    tar -xzf /tmp/gitit.tar.gz
-RUN cd /usr/src/gitit-0.12.1.1 && \
-    stack install
+RUN apt-get update
+RUN apt-get install -y gitit pandoc
+RUN git config --global user.email wiki@homebrewpcb.com
 
-CMD gitit -f ./wiki.conf
+COPY wiki.conf .
+
+CMD gitit -f wiki.conf

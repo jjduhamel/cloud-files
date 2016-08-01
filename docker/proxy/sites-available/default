@@ -1,0 +1,27 @@
+server {
+  listen 8000;
+  server_name nomadfpv.com;
+  rewrite ^(.*) http://www.nomadfpv.com$1 permanent;
+}
+
+server {
+  listen 8000;
+
+  server_name www.nomadfpv.com;
+
+  location / {
+    proxy_pass http://blog:8000/;
+  }
+}
+
+server {
+  listen 8000;
+
+  server_name wiki.nomadfpv.com;
+
+  client_max_body_size 5M;
+
+  location / {
+    proxy_pass http://wiki:8000;
+  }
+}

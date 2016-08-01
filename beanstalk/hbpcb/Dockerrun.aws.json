@@ -1,13 +1,22 @@
 {
   "AWSEBDockerrunVersion": 2,
   "containerDefinitions": [{
-    "name": "blog",
-    "image": "hbpcb/blog",
-    "memory": 512,
+    "name": "proxy",
+    "image": "hbpcb/proxy",
+    "memory": 256,
     "portMappings": [{
       "hostPort": 80,
       "containerPort": 8000
     }],
+    "links": [ "blog", "wiki" ]
+  }, {
+    "name": "blog",
+    "image": "hbpcb/blog",
+    "memory": 256,
     "privileged": "true"
+  }, {
+    "name": "wiki",
+    "image": "hbpcb/wiki",
+    "memory": 256
   }]
 }
